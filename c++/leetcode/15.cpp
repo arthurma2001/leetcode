@@ -1,3 +1,4 @@
+#if 0
 /*
 15. 3Sum
 Medium
@@ -39,11 +40,13 @@ Constraints:
     -105 <= nums[i] <= 105
 
 **/
+#endif
 
 #include <iostream>
 #include <vector>
 #include <map>
 #include <set>
+#include <array>
 #include <tuple>
 #include <algorithm>
 using namespace std;
@@ -55,7 +58,7 @@ namespace
         typedef std::array<int, 3> D;
         struct Cmp
         {
-            bool operator () (const D &i1, const D &i2)
+            bool operator () (const D &i1, const D &i2) const
                 {
                     std::set<int> a ({ i1[0], i1[1], i1[2] });
                     std::set<int> b ({ i2[0], i2[1], i2[2] });
@@ -78,7 +81,7 @@ namespace
                         int c = nums[k];
                         if ((a + b + c) == 0)
                         {
-                            auto alst = D ({a, b, c});
+                            D alst = {a, b, c};
                             out_r.insert (alst);
                         }
                     }
@@ -92,7 +95,7 @@ namespace
             }
             return out_r2;
         }
-
+        
         vector<vector<int>> method2 (const vector<int>& nums0)
          {
              set<D, Cmp> out_r;
@@ -141,7 +144,7 @@ namespace
             }
             return out_r2;
         }
-
+        
         // not working
         vector<vector<int>> method3 (const vector<int>& nums0)
          {
@@ -218,9 +221,45 @@ namespace
             return out_r2;
         }
         
+        vector<vector<int>> method4 (const vector<int>& nums0)
+            {
+                vector<int> nums = nums0;
+                std::sort(nums.begin(), nums.end());
+                int n = nums.size();
+            
+                set<D, Cmp> out_r;
+                for (int i = 0; i < n; i++)
+                {
+                    int j = i+1,  k = n-1;
+                    while (j < k)
+                    {
+                        double sum = (nums[i] + nums[j] + nums[k]);
+                        if (sum == 0)
+                        {
+                            auto alst = D ({nums[i], nums[j], nums[k]});
+                            out_r.insert (alst);
+                            j++;
+                            while (j < k && nums[j] == nums[j-1]) j++;
+                        }
+                        else if (sum < 0)
+                            j ++;
+                        else
+                            k--;
+                    }
+                }
+
+                vector<vector<int>> out_r2;
+                for (auto vlst : out_r)
+                {
+                    vector<int> rlst({vlst[0], vlst[1], vlst[2]});
+                    out_r2.push_back (rlst);
+                }
+                return out_r2;
+            }
+        
     public:
         vector<vector<int>> threeSum(const vector<int>& nums) {
-            return method3 (nums);
+            return method4 (nums);
         }
     };
 }
