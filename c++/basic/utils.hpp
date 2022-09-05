@@ -1,5 +1,8 @@
 #include <iostream>     // std::cout, std::ios
 #include <sstream>      // std::ostringstream
+#include <string>
+#include <vector>
+using namespace std;
 
 namespace leetcode
 {
@@ -24,6 +27,12 @@ namespace leetcode
         }
 
         template<typename T>
+        void dump_val (const string& title, T val)
+        {
+            return dump_vector<T>(title, { val } );
+        }
+
+        template<typename T>
         void dump_vectors (const string& title,
                            const vector< vector<T> >& vals_lst)
         {
@@ -45,6 +54,7 @@ namespace leetcode
             ss << " } ";
             fprintf(stderr, "%s\n", ss.str().c_str());
         }
-        
+
+        void dumpBool (const string &title, bool e);
     }
 }
