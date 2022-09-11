@@ -6,7 +6,8 @@ M_INCS= . -I..
 OBJS= main.o testMain.o 399.o \
    1.o 3.o 11.o 15.o 22.o 19.o 20.o \
    21.o 23.o 33.o 46.o 47.o  39.o \
-   48.o 49.o 53.o
+   48.o 49.o 53.o 54.o 55.o 56.o \
+   57.o 62.o 70.o 73.o
 
 App=test
 

@@ -56,5 +56,6 @@ namespace leetcode
         }
 
         void dumpBool (const string &title, bool e);
+        void dump_bool (const string &title, bool e);
     }
 }
